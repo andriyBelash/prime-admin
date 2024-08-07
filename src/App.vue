@@ -3,7 +3,7 @@ import Button from 'primevue/button'
 </script>
 
 <template>
-  <Button></Button>
+  <router-view></router-view>
 </template>
 
 <style scoped></style>
