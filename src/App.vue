@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import Button from 'primevue/button'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 </script>
 
 <template>
-  <router-view></router-view>
+  <component :is="route.meta.layout || 'div'">
+    <RouterView />
+  </component>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped></style>

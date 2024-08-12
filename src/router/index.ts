@@ -1,3 +1,5 @@
+import LayoutDefault from '@/layout.ts/LayoutDefault.vue'
+import LayoutEmpty from '@/layout.ts/LayoutEmpty.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -6,7 +8,24 @@ const routes = [
     children: [
       {
         path: 'login',
-        component: () => import('@/views/auth/AuthLogin.vue')
+        component: () => import('@/views/auth/AuthLogin.vue'),
+        name: 'auth-login',
+        meta: {
+          layout: LayoutEmpty
+        }
+      }
+    ]
+  },
+  {
+    path: '/dashboard',
+    children: [
+      {
+        path: '/home',
+        name: 'dashboard-home',
+        component: () => import('@/views/dashboard/Home.vue'),
+        meta: {
+          layout: LayoutDefault
+        }
       }
     ]
   }
