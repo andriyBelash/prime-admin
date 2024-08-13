@@ -22,7 +22,7 @@ const routes = [
       {
         path: '/home',
         name: 'dashboard-home',
-        component: () => import('@/views/dashboard/Home.vue'),
+        component: () => import('@/views/dashboard/HomePage.vue'),
         meta: {
           layout: LayoutDefault
         }
