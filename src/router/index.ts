@@ -1,5 +1,5 @@
-import LayoutDefault from "@/layout.ts/LayoutDefault.vue"
-import LayoutEmpty from "@/layout.ts/LayoutEmpty.vue"
+import LayoutDefault from "@/layout/LayoutDefault.vue"
+import LayoutEmpty from "@/layout/LayoutEmpty.vue"
 import { createRouter, createWebHistory } from "vue-router"
 
 const routes = [
