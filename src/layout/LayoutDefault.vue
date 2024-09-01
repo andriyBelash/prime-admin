@@ -1,10 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import BaseSidebar from '@/components/base/BaseSidebar.vue';
+</script>
 
 <template>
-  <div>
-    default
-    <slot></slot>
-  </div>
+  <BaseSidebar>
+    <RouterView/>
+  </BaseSidebar>
 </template>
 
 <style lang="scss" scoped></style>

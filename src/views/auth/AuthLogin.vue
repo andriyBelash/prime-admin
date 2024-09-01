@@ -65,7 +65,7 @@ const submit = async () => {
             </span>
           </div>
         </div>
-        <Button :loading="loading" @click="submit" class="mt-6 w-full p-blue-500" severity="info">Авторизуватись</Button>
+        <Button :loading="loading" @click="submit" class="mt-6 w-full p-blue-500">Авторизуватись</Button>
       </template>
     </Card>
   </div>
