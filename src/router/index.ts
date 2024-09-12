@@ -1,6 +1,6 @@
 import LayoutDefault from "@/layout/LayoutDefault.vue"
 import LayoutEmpty from "@/layout/LayoutEmpty.vue"
-import { setPageTitle } from "@/lib/router"
+import { guards, setPageTitle } from "@/lib/router"
 import { createRouter, createWebHistory } from "vue-router"
 import type { Router, RouteLocationNormalized } from 'vue-router';
 
@@ -50,7 +50,8 @@ const router: Router = createRouter({
 })
 
 router.beforeEach((to: RouteLocationNormalized) => {
-  setPageTitle(to)
+  setPageTitle(to);
+  return guards(to);
 })
 
 export default router

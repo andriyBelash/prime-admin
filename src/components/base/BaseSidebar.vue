@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useAppStore } from '@/store/app';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import Button from 'primevue/button';
 import BaseMenuItem from './BaseMenuItem.vue';
 
 const store = useAppStore()
 const route = useRoute()
+const router = useRouter()
+
+const logout = () => {
+  localStorage.removeItem('access_token')
+  localStorage.removeItem('user')
+  router.push({ name: 'auth-login' })
+}
 
 const sidebarClass = computed(() => ({
   'fixed inset-y-0 left-0 z-50 w-64 transition-transform duration-300 ease-in-out transform': true,
@@ -49,11 +56,12 @@ const sidebarClass = computed(() => ({
       <!-- Main Content -->
       <main class="flex-grow p-4 transition-all duration-300" :class="{ 'ml-64': store.visible }" :style="{ background: '#f1f5f9' }">
         <!-- Header -->
-        <header>
+        <header class="flex justify-between">
           <div class="flex gap-6 items-center">
             <Button @click="store.toggleVisible" icon="pi pi-bars" style="color: var(--p-slate-700)" text rounded aria-label="menu"></Button>
             <span class="font-bold text-base text-gray-500">{{ route.meta.title }}</span>
           </div>
+          <Button @click="logout" icon="pi pi-sign-out" style="color: var(--p-slate-700)" text rounded aria-label="menu"></Button>
         </header>
         <div class="mt-4 h-[90%]">
           <slot></slot>

@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue"
 import { useRouter } from "vue-router"
-import type { Ref } from "vue"
 
 import { useLoginForm } from '@/composables/useLoginForm'
 import { useGlobalLoading } from '@/composables/useGlobalLoading'
@@ -13,6 +11,7 @@ import InputText from "primevue/inputtext"
 import Button from "primevue/button"
 
 import AuthBackgroundSvg from '@/components/auth/AuthBackgroundSvg.vue'
+import { AuthServices } from "@/api/Auth"
 
 const router = useRouter()
 
@@ -22,10 +21,15 @@ const { loading, setLoading } = useGlobalLoading()
 const submit = async () => {
   try {
     setLoading(true)
-    await validate()
+    validate()
     if (isValid.value) {
+      const res = await AuthServices.login(form.value) as any
+      localStorage.setItem('access_token', res['data']['token'])
+      localStorage.setItem('user', JSON.stringify(res['data']['user']))
       router.push({ name: "dashboard-home" })
     }
+  } catch(e) { 
+    console.log(e) 
   } finally {
     setLoading(false)
   }
@@ -49,16 +53,16 @@ const submit = async () => {
               <InputGroupAddon>
                 <i class="pi pi-user"></i>
               </InputGroupAddon>
-              <InputText placeholder="Логін" v-model="form.login" />
+              <InputText placeholder="Логін" v-model="form.email" />
             </InputGroup>
-            <span v-if="errors['login']" class="text-red-500 text-sm">{{ errors["login"] }}</span>
+            <span v-if="errors['email']" class="text-red-500 text-sm">{{ errors["email"] }}</span>
           </div>
           <div>
             <InputGroup class="mt-4">
               <InputGroupAddon>
                 <i class="pi pi-lock"></i>
               </InputGroupAddon>
-              <InputText placeholder="Пароль" v-model="form.password" />
+              <InputText type="password" placeholder="Пароль" v-model="form.password" />
             </InputGroup>
             <span v-if="errors['password']" class="text-red-500 text-sm">
               {{ errors["password"] }}

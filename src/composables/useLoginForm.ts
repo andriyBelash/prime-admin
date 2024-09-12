@@ -7,17 +7,17 @@ const ERROR_MESSAGES = {
 }
 
 export function useLoginForm() {
-  const form: Ref<{ login: string; password: string }> = ref({ login: "", password: "" })
-  const errors: Ref<{ login: string; password: string }> = ref({ login: "", password: "" })
+  const form: Ref<{ email: string; password: string }> = ref({ email: "", password: "" })
+  const errors: Ref<{ email: string; password: string }> = ref({ email: "", password: "" })
 
   const validate = () => {
     errors.value = {
-      login: !form.value.login.trim() ? ERROR_MESSAGES.EMPTY_FIELD : '',
+      email: !form.value.email.trim() ? ERROR_MESSAGES.EMPTY_FIELD : '',
       password: !form.value.password.trim() ? ERROR_MESSAGES.EMPTY_FIELD : ''
     }
   }
 
-  const isValid: ComputedRef<boolean> = computed(() => !errors.value.login && !errors.value.password)
+  const isValid: ComputedRef<boolean> = computed(() => !errors.value.email && !errors.value.password)
 
   return {
     form,
