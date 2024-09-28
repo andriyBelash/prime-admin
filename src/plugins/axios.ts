@@ -1,6 +1,7 @@
-import type { AxiosResponseError } from "@/types/base";
 import axios from "axios";
 import { toast } from "vue3-toastify";
+import { AuthServices } from "@/api/Auth";
+import type { AxiosResponseError } from "@/types/base";
 
 const baseURL = 'http://localhost:3000/api/admin'
 
@@ -19,8 +20,24 @@ http.interceptors.response.use(function (res) {
   return Promise.resolve(res)
 
 
-}, function (error) {
+}, async function (error) {
 
+  const status = error.response.status
+  if(status === 401 && error.response.data && error.response.data.message === 'Invalid Token') {
+    try {
+      const refresh = localStorage.getItem('refresh_token') as string
+      const res = await AuthServices.refreshToken({ token: refresh })
+      const data = res.data
+      localStorage.setItem('refresh_token', data['refresh_token'])
+      localStorage.setItem('access_token', data['access_token'])
+      window.location.href = location.href
+    } catch (e) {
+      localStorage.removeItem('refresh_token')
+      localStorage.removeItem('access_token')
+      window.location.href = '/auth/login'
+    }
+    return Promise.reject(error);
+  }
   if(error.response.data) {
     const data: AxiosResponseError = error.response?.data
     if(data.errors) {
@@ -44,7 +61,7 @@ http.interceptors.response.use(function (res) {
     }
   }
 
-return Promise.reject(error);
+  return Promise.reject(error);
 });
 
 http.interceptors.request.use(

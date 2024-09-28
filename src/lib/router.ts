@@ -10,7 +10,7 @@ export const guards = (to: RouteLocationNormalized) => {
   const token = localStorage.getItem('access_token')
   const isProtected = to.fullPath.includes('dashboard')
   if (token) {
-    if (to.name !== 'dashboard-home') {
+    if (!(to.name as string).includes('dashboard')) {
       return { name: 'dashboard-home' }
     }
   } else {

@@ -31,6 +31,34 @@ const routes = [
           title: 'Головна'
         }
       },
+      // # USERS
+      {
+        path: "users",
+        name: "dashboard-users",
+        component: () => import("@/views/dashboard/users/IndexPage.vue"),
+        meta: {
+          layout: LayoutDefault,
+          title: 'Користувачі'
+        }
+      },
+      {
+        path: "users/create",
+        name: "dashboard-users-create",
+        component: () => import("@/views/dashboard/users/FormPage.vue"),
+        meta: {
+          layout: LayoutDefault,
+          title: 'Створити користувача'
+        }
+      },
+      {
+        path: "users/:userId",
+        name: "dashboard-users-update",
+        component: () => import("@/views/dashboard/users/FormPage.vue"),
+        meta: {
+          layout: LayoutDefault,
+          title: 'Редагувати користувача'
+        }
+      },
       {
         path: "/:pathMatch(.*)*",
         name: "not-found",

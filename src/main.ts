@@ -2,7 +2,6 @@ import "./assets/main.css"
 import "primeicons/primeicons.css"
 import 'vue3-toastify/dist/index.css';
 
-
 import { createApp } from "vue"
 import { createPinia } from "pinia"
 
@@ -10,6 +9,7 @@ import PrimeVue from "primevue/config"
 import Aura from "@primevue/themes/aura"
 import Ripple from 'primevue/ripple';
 import { definePreset } from '@primevue/themes';
+import ToastService from 'primevue/toastservice';
 
 import App from "./App.vue"
 import router from "./router"
@@ -39,10 +39,11 @@ app.use(PrimeVue, {
   theme: {
     preset: MyPreset,
     options: {
-      darkModeSelector: ".my-app-dark"
+      darkModeSelector: ".dark-mode"
     }
   }
 })
+app.use(ToastService)
 app.use(router)
 app.directive('ripple', Ripple);
 app.mount("#app")
