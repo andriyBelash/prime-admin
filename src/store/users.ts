@@ -17,8 +17,17 @@ export const useUserStore = defineStore('users', () => {
     password: '',
     role: 'user',
     email: ''
-
   })
+
+  const clearForm = () => {
+    form.value = {
+      file: null,
+      username: '',
+      password: '',
+      role: 'user',
+      email: ''
+    }
+  }
 
   const setParams = (key: string, value: string) => {
     if(key === 'page') {
@@ -57,13 +66,20 @@ export const useUserStore = defineStore('users', () => {
     }
   }
 
+  const removeUser = async(id: number) => {
+    await UserServices.remove(id)
+    getUsers()
+  }
+
   return {
     users,
     params,
     loading,
     form,
+    clearForm,
     onSubmit,
     getUsers,
     setParams,
+    removeUser
   }
 })

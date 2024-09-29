@@ -1,0 +1,48 @@
+.dark-mode {
+  --surface-ground: rgb(29, 38, 48);
+  --surface-section: rgb(39, 48, 58);
+  --surface-card: rgb(49, 58, 68);
+  --surface-overlay: rgb(59, 68, 78);
+  --surface-border: rgb(69, 78, 88);
+  --text-color: rgb(236, 239, 241);
+  --text-color-secondary: rgb(186, 189, 191);
+  --primary-color: #6293FF;
+  --primary-color-text: rgb(255, 255, 255);
+  --focus-ring: 0 0 0 0.2rem rgba(99, 102, 241, 0.5);
+}
+
+.dark-mode .p-component {
+  background-color: var(--surface-ground);
+  color: var(--text-color);
+}
+
+.dark-mode .p-inputtext {
+  background-color: var(--surface-ground);
+  color: var(--text-color);
+  border-color: var(--surface-border);
+}
+
+.dark-mode .p-button {
+  /* background-color: var(--primary-color); */
+  color: #ffffff;
+}
+
+.dark-mode .p-paginator {
+  background-color: var(--surface-ground);
+}
+
+.dark-mode .p-paginator .p-paginator-pages .p-paginator-page {
+  color: var(--text-color);
+}
+
+.dark-mode .p-dropdown-panel {
+  background-color: var(--surface-ground);
+}
+
+.dark-mode .p-dropdown-item {
+  color: var(--text-color);
+}
+
+.dark-mode .p-dropdown-item:hover {
+  background-color: var(--surface-hover);
+}

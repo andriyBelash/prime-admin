@@ -47,17 +47,16 @@
 <template>
   <div class="relative overflow-x-auto">
     <ProgressBar v-if="loading" mode="indeterminate" style="height: 4px"></ProgressBar>
-    <table class="w-full text-sm text-left text-gray-500 border">
-      <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+    <table class="w-full text-sm text-left">
+      <thead class="uppercase bg-card border-b border-border">
         <slot name="thead"></slot>
       </thead>
-      <tbody>
+      <tbody class="bg-card">
         <slot name="tbody"></slot>
       </tbody>
     </table>
-
     <Paginator 
-      class="mt-5"
+      class="mt-5 pagination"
       :rows="params['per_page']" 
       :totalRecords="params['total']" 
       :rowsPerPageOptions="[5, 10, 15, 20]"

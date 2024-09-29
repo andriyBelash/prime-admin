@@ -44,20 +44,32 @@ http.interceptors.response.use(function (res) {
       data.errors.forEach((item) => {
         toast(`${item.path}: ${item.msg}`, {
           "type": "error",
-          "position": "bottom-center",
+          "position": "bottom-right",
           "autoClose": 2000,
           "transition": "slide",
           "dangerouslyHTMLString": true
         })
       })
     } else if(data.message) {
-      toast(data.message, {
-        "type": "error",
-        "position": "bottom-center",
-        "autoClose": 2000,
-        "transition": "slide",
-        "dangerouslyHTMLString": true
-      })
+      if(Array.isArray(data.message)) {
+        for(const message of data.message) {
+          toast(message, {
+            "type": "error",
+            "position": "bottom-right",
+            "autoClose": 2000,
+            "transition": "slide",
+            "dangerouslyHTMLString": true
+          })
+        }
+      } else {
+        toast(data.message, {
+          "type": "error",
+          "position": "bottom-center",
+          "autoClose": 2000,
+          "transition": "slide",
+          "dangerouslyHTMLString": true
+        })
+      }
     }
   }
 

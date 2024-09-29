@@ -6,13 +6,13 @@
   import Button from 'primevue/button';
 
   import { useUserStore } from '@/store/users';
-  import { useToast } from "primevue/usetoast";
   import { ref, type Ref } from 'vue'
   import { ROLES } from '@/lib/constants';
   import { validateEmail } from '@/lib/form';
+  import { useRouter } from 'vue-router';
 
-  const toast = useToast();
   const store = useUserStore()
+  const router = useRouter()
   const demoImage: Ref<string | null> = ref(null)
   const confirmPassword = ref('')
   const error: Ref<Record<string, string>> = ref({})
@@ -27,51 +27,51 @@
   return Boolean(Object.keys(error.value).length)
 }
 
-const validate = (): boolean => {
-  error.value = {}
+  const validate = (): boolean => {
+    error.value = {}
 
-  // Перевірка на пусті поля
-  if (!store.form.username) {
-    error.value.username = 'Поле не може бути пустим';
-  }
-  if (!store.form.email) {
-    error.value.email = 'Поле не може бути пустим';
-  }
-  if (!store.form.password) {
-    error.value.password = 'Поле не може бути пустим';
-  }
-  if (!confirmPassword.value) {
-    error.value.confirm_password = 'Поле не може бути пустим';
-  }
+    // Перевірка на пусті поля
+    if (!store.form.username) {
+      error.value.username = 'Поле не може бути пустим';
+    }
+    if (!store.form.email) {
+      error.value.email = 'Поле не може бути пустим';
+    }
+    if (!store.form.password) {
+      error.value.password = 'Поле не може бути пустим';
+    }
+    if (!confirmPassword.value) {
+      error.value.confirm_password = 'Поле не може бути пустим';
+    }
 
-  if (checkErrors()) {
-    return false;
+    if (checkErrors()) {
+      return false;
+    }
+
+    // Перевірка на валідність email
+    if (!validateEmail(store.form.email)) {
+      error.value.email = 'Введіть валідну пошту';
+    }
+
+    if (checkErrors()) {
+      return false;
+    }
+
+    if (store.form.password !== confirmPassword.value) {
+      error.value.password = 'Паролі не збігаються';
+      error.value.confirm_password = 'Паролі не збігаються';
+    }
+
+    return !checkErrors();
   }
-
-  // Перевірка на валідність email
-  if (!validateEmail(store.form.email)) {
-    error.value.email = 'Введіть валідну пошту';
-  }
-
-  if (checkErrors()) {
-    return false;
-  }
-
-  if (store.form.password !== confirmPassword.value) {
-    error.value.password = 'Паролі не збігаються';
-    error.value.confirm_password = 'Паролі не збігаються';
-  }
-
-  return !checkErrors();
-}
-
 
   const onSubmit = async () => {
     const isValid = validate()
 
     if(isValid) {
       await store.onSubmit()
-      console.log('VALID', store.form)
+      store.clearForm()
+      router.push({ name: 'dashboard-users' })
     }
   }
 

@@ -8,8 +8,8 @@ export const useAppStore = defineStore('app', () => {
     {
       label: '',
       items: [
-        { icon: 'pi pi-home', label: 'Dashboard', to: '/home', name: 'dashboard-home' },
-        { icon: 'pi pi-user', label: 'Users', to: '/users', name: 'dashboard-users' },
+        { icon: 'pi pi-home', label: 'Головна', to: '/home', name: 'dashboard-home' },
+        { icon: 'pi pi-user', label: 'Користувачі', to: '/users', name: 'dashboard-users' },
       ]
     },
   ]);

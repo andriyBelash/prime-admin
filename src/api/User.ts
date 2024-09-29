@@ -8,4 +8,8 @@ export class UserServices {
   public static create(form: FormData) {
     return http.post('/users', form, { headers: { 'Content-Type': 'multipart/form-data' } })
   }
+
+  public static remove(id: number) {
+    return http.delete(`/users/${id}`)
+  }
 }

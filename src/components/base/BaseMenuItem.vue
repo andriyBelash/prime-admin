@@ -9,7 +9,7 @@ const router = useRouter();
 
 const isActive = computed(() => {
   if (props.item.to) {
-    return route.path.startsWith(props.item.to);
+    return route.path.includes(props.item.to);
   }
   return false;
 });
@@ -24,19 +24,19 @@ const navigate = (to: string) => {
 </script>
 
 <template>
-  <li>
+  <li class="cursor-pointer mt-2">
     <div
       v-if="!item.items"
       @click="navigate(item.to || '')"
       v-ripple
       class="flex items-center cursor-pointer py-2 px-6 rounded transition-colors duration-150"
       :class="{
-        'bg-blue-100 font-black bg-transparent hover:bg-blue-100': isActive,
-        'text-gray-600 hover:bg-gray-100 dark:text-gray-600 dark:hover:bg-blue-100': !isActive
+        'bg-blue-100 font-black bg-hover-blue': isActive,
+        'text-gray-600 hover:bg-hover-grey': !isActive
       }"
     >
-      <i :class="item.icon + ' mr-2'" class="text-blue-500"></i>
-      <span :class="{ 'font-black': isActive, 'font-medium': !isActive }">{{ item.label }}</span>
+      <i class="mr-2" :class="{ 'text-blue': isActive, 'text-grey': !isActive, [item.icon]: true }"></i>
+      <span :class="{ 'font-black text-blue': isActive, 'font-medium text-grey': !isActive }">{{ item.label }}</span>
       <span
         v-if="item.badge"
         class="inline-flex items-center justify-center ml-auto bg-blue-500 text-white rounded-full"
